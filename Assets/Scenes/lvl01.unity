@@ -1355,7 +1355,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
-  m_AnchoredPosition: {x: 80, y: 1830}
+  m_AnchoredPosition: {x: 0, y: 1830}
   m_SizeDelta: {x: 600, y: 180}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &1592781843
@@ -1489,10 +1489,10 @@ MonoBehaviour:
   controlMessages:
   - {fileID: 11400000, guid: 6c57d8fcb191850478af9d2326a4518b, type: 2}
   originalYPosition: 1830
-  intoGameSpeed: 0.5
+  intoGameSpeed: 1
   intoGameBuffer: -100
-  outOfGameSpeed: 1
-  newYPosition: 1800
+  outOfGameSpeed: 2
+  newYPosition: 900
 --- !u!1 &1682318974
 GameObject:
   m_ObjectHideFlags: 0

@@ -34,8 +34,8 @@ public class IntroMessage : MonoBehaviour
         Vector3 newPosition = new Vector3(_rectTransform.position.x, newYPosition, _rectTransform.position.z);
 
         Sequence positionSequence = DOTween.Sequence();
-        positionSequence.Append(transform.DOMoveY(newYPosition, intoGameSpeed, false));
-        positionSequence.Append(transform.DOMoveY(originalYPosition, outOfGameSpeed, false).SetDelay(5));
+        positionSequence.Append(transform.DOMoveY(newYPosition, intoGameSpeed, false).SetEase(Ease.OutBack));
+        positionSequence.Append(transform.DOMoveY(originalYPosition, outOfGameSpeed, false).SetDelay(5).SetEase(Ease.OutBack));
         positionSequence.Play();
     }
 }
