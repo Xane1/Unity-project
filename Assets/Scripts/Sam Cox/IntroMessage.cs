@@ -10,7 +10,6 @@ public class IntroMessage : MonoBehaviour
     [SerializeField] ControlMessageSO[] controlMessages;
     [SerializeField] private float originalYPosition = 1830;
     [SerializeField] private float intoGameSpeed = 0.5f;
-    [SerializeField] private float intoGameBuffer = 100;
     [SerializeField] private float outOfGameSpeed = 3f;
     [SerializeField] private float newYPosition;
     private RectTransform _rectTransform;
@@ -30,8 +29,10 @@ public class IntroMessage : MonoBehaviour
 
         tmpText.text = controlMessages[controlMessageInt].controlMessage;
 
-        Vector3 oldPosition = new Vector3(_rectTransform.position.x, originalYPosition, _rectTransform.position.z);
-        Vector3 newPosition = new Vector3(_rectTransform.position.x, newYPosition, _rectTransform.position.z);
+        Vector3 rectTransformPos = _rectTransform.position;
+
+        Vector3 oldPosition = new Vector3(rectTransformPos.x, originalYPosition, rectTransformPos.z);
+        Vector3 newPosition = new Vector3(rectTransformPos.x, newYPosition, rectTransformPos.z);
 
         Sequence positionSequence = DOTween.Sequence();
         positionSequence.Append(transform.DOMoveY(newYPosition, intoGameSpeed, false).SetEase(Ease.OutBack));
