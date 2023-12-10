@@ -1412,7 +1412,7 @@ MonoBehaviour:
   originalYPosition: 1830
   intoGameSpeed: 1
   outOfGameSpeed: 2
-  newYPosition: 900
+  newYPosition: 1835
 --- !u!1 &1603248461 stripped
 GameObject:
   m_CorrespondingSourceObject: {fileID: 2217386144128036249, guid: dbbc091383f064f97b0f9bc663d36045, type: 3}

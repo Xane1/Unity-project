@@ -8,6 +8,8 @@ public class PlayerMovement : MonoBehaviour
     [SerializeField] private float characterSpeed = 5f;
     
     private Rigidbody2D _rigidbody2D;
+
+    public int localScaleX;
     // Start is called before the first frame update
     void Start()
     {
@@ -22,6 +24,7 @@ public class PlayerMovement : MonoBehaviour
         
         if (_movementDirection < 0) transform.localScale = new Vector3(-1, 1, 1);
         else if (_movementDirection > 0) transform.localScale = new Vector3(1, 1, 1);
+        localScaleX = (int)transform.localScale.x;
     }
 
     private void FixedUpdate()
@@ -29,3 +32,6 @@ public class PlayerMovement : MonoBehaviour
         _rigidbody2D.velocity = new Vector2(_movementDirection * characterSpeed, _rigidbody2D.velocity.y);
     }
 }
+
+// References.
+// https://discussions.unity.com/t/possible-to-convert-a-float-into-an-int/18453
