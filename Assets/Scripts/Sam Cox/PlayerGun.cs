@@ -10,6 +10,7 @@ public class PlayerGun : MonoBehaviour
     private Vector2 _playerPosition;
     [SerializeField] private float offset;
     private PlayerMovement _playerMovement;
+    [SerializeField] private float2x2 angleRange;
     private void Start()
     {
         _playerMovement = GetComponentInParent<PlayerMovement>();
@@ -32,7 +33,6 @@ public class PlayerGun : MonoBehaviour
         _playerPosition = transform.position;
         Vector2 aimDirection = _mousePosition - _playerPosition;
         float aimAngle = MathF.Atan2(aimDirection.y, aimDirection.x) * Mathf.Rad2Deg - offset;
-        // if (_playerMovement.localScaleX == -1) aimAngle = -aimAngle;
         Debug.Log("Aim Angle: " + aimAngle);
         transform.rotation = Quaternion.Euler(0, 0, aimAngle);
     }

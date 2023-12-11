@@ -21,7 +21,12 @@ public class PlayerMovement : MonoBehaviour
         if (Input.GetKey(KeyCode.A)) _movementDirection = Vector2.left.x;
         else if (Input.GetKey(KeyCode.D)) _movementDirection = Vector2.right.x;
         else _movementDirection = 0;
-        
+
+    //  SetLocalScale();
+    }
+
+    private void SetLocalScale()
+    {
         if (_movementDirection < 0) transform.localScale = new Vector3(-1, 1, 1);
         else if (_movementDirection > 0) transform.localScale = new Vector3(1, 1, 1);
         localScaleX = (int)transform.localScale.x;

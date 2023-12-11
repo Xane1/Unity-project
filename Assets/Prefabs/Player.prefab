@@ -173,6 +173,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   characterSpeed: 5
+  localScaleX: 0
 --- !u!1 &8439108203997217983
 GameObject:
   m_ObjectHideFlags: 0
@@ -398,9 +399,10 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   weapon: {fileID: 884763339257723191}
   offset: 0
-  rightAngleRange:
-    x: -45
-    y: 45
-  leftAngleRange:
-    x: -40
-    y: 40
+  angleRange:
+    c0:
+      x: -145
+      y: -40
+    c1:
+      x: 140
+      y: 40
