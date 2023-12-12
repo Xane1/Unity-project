@@ -26,13 +26,11 @@ public class PlayerGun : MonoBehaviour
     }
     private void SetGunAim()
     {
+        SetRobotLocalScale();
         _playerPosition = pivotTransform.position;
         Vector2 aimDirection = _mousePosition - _playerPosition;
-        Debug.Log("Aim Direction: " + aimDirection);
-        float aimAngle = MathF.Atan2(aimDirection.y, aimDirection.x) * Mathf.Rad2Deg;
-        pivotTransform.rotation = Quaternion.Euler(0, 0, aimAngle);
-        SetRobotLocalScale();
-        
+        pivotTransform.localRotation =
+            Quaternion.FromToRotation(Vector2.right, aimDirection * playerTransform.localScale);
     }
 
     void SetRobotLocalScale()
@@ -53,5 +51,7 @@ public class PlayerGun : MonoBehaviour
 }
 
 // Adapted from PlayerController script. 
+// Acknowledgements. 
+// Thanks to Alice Bottino on Discord for helping out with the SetGunAim() and SetRobotLocalScale() functions.
 
 

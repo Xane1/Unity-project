@@ -44,3 +44,5 @@ public class IntroMessage : MonoBehaviour
 // References.
 // https://stackoverflow.com/questions/64595434/how-do-i-change-the-source-image-of-a-unity-image-component
 // https://docs.unity3d.com/Manual/class-ScriptableObject.html#:~:text=A%20ScriptableObject%20is%20a%20data%20container%20that%20you,Project%E2%80%99s%20memory%20usage%20by%20avoiding%20copies%20of%20values.
+// Acknowledgements.
+// Thanks to theChief on Discord for helping out with line 38 and 39.
