@@ -10,4 +10,8 @@ public class Bullet : MonoBehaviour
         Destroy(gameObject);
         //Enemy, wall hit
     }
+    void OnBecameInvisible() {
+        Destroy(gameObject);
+    }
+    
 }

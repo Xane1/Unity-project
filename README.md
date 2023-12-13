@@ -6,6 +6,7 @@
 # UI Pack (https://kenney.nl/assets/ui-pack).
 # Interface Sounds (https://kenney.nl/assets/interface-sounds).
 # DOTween.
+# LeanPool.
 # Modern Procedural UI Kit (No longer available: https://assetstore.unity.com/packages/tools/gui/modern-procedural-ui-kit-163041).
 
 # Assistance. 

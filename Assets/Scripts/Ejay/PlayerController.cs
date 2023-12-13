@@ -9,26 +9,26 @@ public class PlayerController : MonoBehaviour
     public float moveSpeed = 5;
     public Rigidbody2D rb;
     public Weapon weapon;
+    private float horizontal;
 
     private Vector2 moveDirection;
     private Vector2 mousePosition;
     void Update()
     {
-        float moveX = Input.GetAxisRaw("Horizontal");
-        float moveY = Input.GetAxisRaw("Vertical");
+        horizontal = Input.GetAxisRaw("Horizontal");
 
         if (Input.GetMouseButtonDown(0))
         {
-            // weapon.Fire();
+            weapon.Fire();
         }
-
-        moveDirection = new Vector2(moveX, moveY).normalized;
+        
         mousePosition = Camera.main.ScreenToWorldPoint(Input.mousePosition);
     }
 
     private void FixedUpdate()
     {
-        rb.velocity = new Vector2(moveDirection.x * moveSpeed, moveDirection.y * moveSpeed);
+        rb.velocity = new Vector2(moveDirection.x * moveSpeed, moveDirection.y);
+
         Vector2 aimdirection = mousePosition - rb.position;
         float aimAngle = MathF.Atan2(aimdirection.y, aimdirection.x) * Mathf.Rad2Deg - 90f;
         rb.rotation = aimAngle;

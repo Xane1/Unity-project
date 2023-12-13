@@ -1,32 +1,51 @@
-using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
 
 public class BasicMovementScript : MonoBehaviour
 {
-    public float speed = 0.1f;
-    // Start is called before the first frame update
-    void Start()
-    {
-        
-    }
+    private float horizontal;
+    private float speed = 8f;
+    private float jumpingPower = 16f;
+    private bool isFacingRight = true;
 
-    // Update is called once per frame
+    [SerializeField] private Rigidbody2D rb;
+    [SerializeField] private Transform groundCheck;
+    [SerializeField] private LayerMask groundLayer;
+
     void Update()
     {
-        if (Input.GetKey(KeyCode.RightArrow))
-        {
-            Rigidbody2D rigidbody = GetComponent<Rigidbody2D>();
-            rigidbody.MovePosition(transform.position + Vector3.right * speed);
+        horizontal = Input.GetAxisRaw("Horizontal");
 
-            transform.localScale = new Vector3(-1, 1, 1);
-        }
-        if (Input.GetKey(KeyCode.LeftArrow))
+        if (Input.GetButtonDown("Jump") && IsGrounded())
         {
-            Rigidbody2D rigidbody = GetComponent<Rigidbody2D>();
-            rigidbody.MovePosition(transform.position + Vector3.left * speed);
-            
-            transform.localScale = new Vector3(1, 1, 1);
+            rb.velocity = new Vector2(rb.velocity.x, jumpingPower);
+        }
+
+        if (Input.GetButtonUp("Jump") && rb.velocity.y > 0f)
+        {
+            rb.velocity = new Vector2(rb.velocity.x, rb.velocity.y * 0.5f);
+        }
+
+        Flip();
+    }
+
+    private void FixedUpdate()
+    {
+        rb.velocity = new Vector2(horizontal * speed, rb.velocity.y);
+    }
+
+    private bool IsGrounded()
+    {
+        return Physics2D.OverlapCircle(groundCheck.position, 0.2f, groundLayer);
+    }
+
+    private void Flip()
+    {
+        if (isFacingRight && horizontal < 0f || !isFacingRight && horizontal > 0f)
+        {
+            isFacingRight = !isFacingRight;
+            Vector3 localScale = transform.localScale;
+            localScale.x *= -1f;
+            transform.localScale = localScale;
         }
     }
 }
