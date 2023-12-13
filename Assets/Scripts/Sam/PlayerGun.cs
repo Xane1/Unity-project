@@ -2,17 +2,28 @@ using UnityEngine;
 using Lean.Pool;
 public class PlayerGun : MonoBehaviour
 { 
-    private Vector2 _mousePosition;
+    [Header("Raycast")]
+    [Range(1, 200)] [SerializeField] private float raycastLength;
+    [SerializeField] private bool useRaycast;
+    private bool _raycastMode;
+    
+    [Header("Player")]
     private Camera _playerCam;
     private Vector2 _playerPosition;
     [SerializeField] private bool canFlipPlayer;
     [SerializeField] private Transform playerTransform;
+    
+    [Header("Mouse")]
+    private Vector2 _mousePosition;
+    
+    [Header("Pivot")]
     [SerializeField] private Transform pivotTransform;
+
+    [Header("Shoot")]
     public GameObject bulletPrefab;
     private bool _playerCanShoot = true;
-    private bool _useRaycast;
-    private bool _raycastMode;
     public Transform firePoint;
+    
     private void Start()
     {
         _playerCam = Camera.main;
@@ -47,36 +58,45 @@ public class PlayerGun : MonoBehaviour
             else playerTransform.localScale = new Vector3(-1, 1, 1);
         }
     }
-
-    private void OnTriggerEnter2D(Collider2D other)
-    {
-        Debug.Log("Gun is colliding with " + other.name);
-        if (other.gameObject.CompareTag("Tilemap")) _playerCanShoot = false;
-    }
-
-    private void OnTriggerExit2D(Collider2D other)
-    {
-        Debug.Log("Gun is no longer colliding with " + other.name);
-        _playerCanShoot = true;
-    }
-
     void Fire()
     {
         if (_playerCanShoot)
         {
-            if (_useRaycast) _raycastMode = true;
+            if (useRaycast) _raycastMode = true;
             else LeanPool.Spawn(bulletPrefab, firePoint.position, firePoint.rotation);
         }
     }
 
     void FireRaycast()
     {
-        
+        RaycastHit2D raycastHit2D = Physics2D.Raycast(firePoint.position, firePoint.right, raycastLength);
+        if (raycastHit2D.collider != null)
+        {
+            Debug.DrawRay((Vector2)firePoint.position, (Vector2)firePoint.right, Color.red);
+            Debug.Log("Hitting: " + raycastHit2D.collider.name);
+            if (raycastHit2D.collider.CompareTag("Target"))
+            {
+                TargetHit(raycastHit2D.collider.transform.position, raycastHit2D.collider.tag);
+            }
+            _raycastMode = false;
+        }
+    }
+
+    public void TargetHit(Vector2 hitPosition, string hitName)
+    {
+        Vector2 newPlayerPosition = hitPosition;
+        while (hitName != "Target")
+        {
+            
+        }
+        playerTransform.position = hitPosition + Vector2.down;
+
     }
 }
 
 // Adapted from PlayerController script. 
 // Acknowledgements. 
 // Thanks to Alice Bottino on Discord for helping out with the SetGunAim() and SetRobotLocalScale() functions.
-
+// References.
+// https://medium.com/@youngchae.depriest/detecting-objects-using-2d-raycasting-in-unity-40cfa9c79234
 
