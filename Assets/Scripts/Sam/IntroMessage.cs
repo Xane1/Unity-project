@@ -18,10 +18,9 @@ public class IntroMessage : MonoBehaviour
     {
         _rectTransform = GetComponent<RectTransform>();
         originalYPosition = transform.position.y;
-        ShowControlMessage(0);
     }
 
-    void ShowControlMessage(int controlMessageInt)
+    public void ShowControlMessage(int controlMessageInt)
     {
         if (controlMessages[controlMessageInt].useControllerSprite) image.sprite = controlMessages[controlMessageInt].controlSpriteController;
             
