@@ -502,7 +502,7 @@ GameObject:
   - component: {fileID: 827491445}
   - component: {fileID: 827491444}
   - component: {fileID: 827491446}
-  m_Layer: 0
+  m_Layer: 7
   m_Name: Tilemap
   m_TagString: Tilemap
   m_Icon: {fileID: 0}
@@ -1272,7 +1272,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 1084283940}
-  m_Layer: 0
+  m_Layer: 6
   m_Name: GunPoint
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -1379,7 +1379,7 @@ GameObject:
   m_Component:
   - component: {fileID: 1530216288}
   - component: {fileID: 1530216287}
-  m_Layer: 0
+  m_Layer: 7
   m_Name: Grid
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -1599,7 +1599,7 @@ GameObject:
   - component: {fileID: 1638231548}
   - component: {fileID: 1638231547}
   - component: {fileID: 1638231546}
-  m_Layer: 0
+  m_Layer: 7
   m_Name: Target
   m_TagString: Target
   m_Icon: {fileID: 0}
@@ -1899,7 +1899,7 @@ GameObject:
   - component: {fileID: 2146902385}
   - component: {fileID: 2146902387}
   - component: {fileID: 2146902386}
-  m_Layer: 0
+  m_Layer: 6
   m_Name: GunObj
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -1935,7 +1935,11 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   raycastLength: 50
-  useRaycast: 1
+  useRaycast: 0
+  maxBounces: 3
+  playerLayerMask:
+    serializedVersion: 2
+    m_Bits: 64
   canFlipPlayer: 1
   playerTransform: {fileID: 8884223803931006203}
   pivotTransform: {fileID: 1408011016678649605}
@@ -2109,9 +2113,9 @@ GameObject:
   - component: {fileID: 6689201847086434733}
   - component: {fileID: 2722329521057426834}
   - component: {fileID: 8884223803931006204}
-  m_Layer: 0
+  m_Layer: 6
   m_Name: Player
-  m_TagString: Untagged
+  m_TagString: Player
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -2242,6 +2246,10 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   raycastLength: 0
   useRaycast: 0
+  maxBounces: 3
+  playerLayerMask:
+    serializedVersion: 2
+    m_Bits: 0
   canFlipPlayer: 0
   playerTransform: {fileID: 8884223803931006203}
   pivotTransform: {fileID: 1408011016678649605}
@@ -2256,7 +2264,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 1408011016678649605}
-  m_Layer: 0
+  m_Layer: 6
   m_Name: GunParent
   m_TagString: Untagged
   m_Icon: {fileID: 0}
