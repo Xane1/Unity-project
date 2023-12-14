@@ -37,8 +37,8 @@ public class PlayerGun : MonoBehaviour
     {
         _mousePosition = _playerCam.ScreenToWorldPoint(Input.mousePosition);
         SetGunAim();
-        if (Input.GetMouseButtonDown(0)) Fire(false);
-        else if (Input.GetMouseButtonDown(1)) Fire(true);
+        if (Input.GetKeyDown(KeyCode.Mouse0)) Fire(true);
+        if (Input.GetKeyDown(KeyCode.Mouse1)) Fire(false);
     }
     void FixedUpdate()
     {
@@ -71,18 +71,23 @@ public class PlayerGun : MonoBehaviour
     }
     void FireRaycast()
     {
-        RaycastHit2D raycastHit2D = Physics2D.Raycast(firePoint.position, firePoint.right, raycastLength, ~playerLayerMask);
+        RaycastHit2D raycastHit2D = Physics2D.Raycast(firePoint.position, firePoint.right, 
+            raycastLength, ~playerLayerMask);
         // Shoots out a raycast.
         if (raycastHit2D.collider != null)
         {
-            RaycastHitMessage(raycastHit2D, 1, firePoint.position, raycastHit2D.collider.transform.position);
+            RaycastHitMessage(raycastHit2D, 1, firePoint.position, 
+                raycastHit2D.point);
             if (raycastHit2D.collider.CompareTag("Target"))
             {
-                Vector2 inDirection = (raycastHit2D.transform.position - firePoint.transform.position).normalized;
-                Debug.Log("indirection: " + inDirection);
-                RaycastHit2D reflectionRaycast2D = Physics2D.Raycast(raycastHit2D.transform.position,
-                    Vector2.Reflect(inDirection, Vector2.down));
-                RaycastHitMessage(reflectionRaycast2D, 2, raycastHit2D.transform.position, reflectionRaycast2D.collider.transform.position);
+                RaycastHit2D reflectionRaycast2D = Physics2D.Raycast(raycastHit2D.point,
+                    Vector2.Reflect(firePoint.right, raycastHit2D.normal));
+                if (reflectionRaycast2D.collider != null)
+                {
+                    if (!reflectionRaycast2D.collider.CompareTag("Target")) playerTransform.position = reflectionRaycast2D.point + Vector2.up;
+                }
+                RaycastHitMessage(reflectionRaycast2D, 2, raycastHit2D.point, 
+                    reflectionRaycast2D.point);
             }
                 _raycastMode = false;
             // Disables the raycast from reoccurring in FixedUpdate(), capping it's usage.
@@ -94,11 +99,6 @@ public class PlayerGun : MonoBehaviour
         Debug.DrawLine(hitStart, hitEnd, Color.white, 1f);
         
     }
-    private void SetPlayerRaycastLocation(RaycastHit2D raycastHit2D)
-    {
-        Vector2 newPlayerPosition = raycastHit2D.collider.transform.position;
-        playerTransform.position = newPlayerPosition;
-    }
 }
 
 // Adapted from PlayerController script. 
@@ -106,4 +106,5 @@ public class PlayerGun : MonoBehaviour
 // Thanks to Alice Bottino on Discord for helping out with the SetGunAim() and SetRobotLocalScale() functions.
 // References.
 // https://medium.com/@youngchae.depriest/detecting-objects-using-2d-raycasting-in-unity-40cfa9c79234
+// https://discussions.unity.com/t/how-can-i-have-a-raycast-ignore-a-layer-completely/116196
 
