@@ -21,4 +21,9 @@ public class CameraPosition : MonoBehaviour
             transform1.position = _newCameraPosition;
         }
     }
+
+    public void UpdatePlayerTransform(Transform newPlayerTransform)
+    {
+        playerTransform = newPlayerTransform;
+    }
 }
