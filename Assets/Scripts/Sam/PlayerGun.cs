@@ -6,6 +6,7 @@ public class PlayerGun : MonoBehaviour
     [Range(1, 200)] [SerializeField] private float raycastLength;
     [SerializeField] private bool useRaycast;
     private bool _raycastMode;
+    [SerializeField] private int maxBounces = 3;
     
     [Header("Player")]
     private Camera _playerCam;
@@ -70,27 +71,23 @@ public class PlayerGun : MonoBehaviour
     void FireRaycast()
     {
         RaycastHit2D raycastHit2D = Physics2D.Raycast(firePoint.position, firePoint.right, raycastLength);
+        // Shoots out a raycast.
         if (raycastHit2D.collider != null)
         {
-            Debug.DrawRay((Vector2)firePoint.position, (Vector2)firePoint.right, Color.red);
             Debug.Log("Hitting: " + raycastHit2D.collider.name);
             if (raycastHit2D.collider.CompareTag("Target"))
             {
-                TargetHit(raycastHit2D.collider.transform.position, raycastHit2D.collider.tag);
+                
             }
             _raycastMode = false;
+            // Disables the raycast from reoccurring in FixedUpdate(), capping it's usage.
         }
     }
 
-    public void TargetHit(Vector2 hitPosition, string hitName)
+    private void SetPlayerRaycastLocation(RaycastHit2D raycastHit2D)
     {
-        Vector2 newPlayerPosition = hitPosition;
-        while (hitName != "Target")
-        {
-            
-        }
-        playerTransform.position = hitPosition + Vector2.down;
-
+        Vector2 newPlayerPosition = raycastHit2D.collider.transform.position;
+        playerTransform.position = newPlayerPosition;
     }
 }
 

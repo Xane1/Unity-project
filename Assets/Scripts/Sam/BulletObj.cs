@@ -18,7 +18,12 @@ public class BulletObj : MonoBehaviour
 
     private void OnTriggerEnter2D(Collider2D other)
     {
-        if (other.gameObject.CompareTag("Target")) _playerGun.TargetHit(other.transform.position, other.gameObject.tag);
+        if (other.gameObject.CompareTag("Target")) TargetHit(other.gameObject.transform.position);
         LeanPool.Despawn(this);
+    }
+
+    void TargetHit(Vector2 targetLocation)
+    {
+        
     }
 }
