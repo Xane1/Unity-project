@@ -1935,7 +1935,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   raycastLength: 50
-  useRaycast: 0
+  useRaycast: 1
   maxBounces: 3
   playerLayerMask:
     serializedVersion: 2
