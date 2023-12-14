@@ -1,6 +1,3 @@
-using System;
-using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
 
 public class BasicPlayerMovement : MonoBehaviour
@@ -48,5 +45,10 @@ public class BasicPlayerMovement : MonoBehaviour
     private void OnCollisionExit2D(Collision2D other)
     {
         Debug.Log("The player is no longer colliding with " + other.gameObject.name);
+    }
+
+    public void SetPlayerLocation(Vector2 newLocation)
+    {
+        transform.position = newLocation;
     }
 }
