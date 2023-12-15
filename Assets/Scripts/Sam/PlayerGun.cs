@@ -37,8 +37,8 @@ public class PlayerGun : MonoBehaviour
     {
         _mousePosition = _playerCam.ScreenToWorldPoint(Input.mousePosition);
         SetGunAim();
-        if (Input.GetKeyDown(KeyCode.Mouse0)) Fire(true);
-        if (Input.GetKeyDown(KeyCode.Mouse1)) Fire(false);
+        if (Input.GetKeyDown(KeyCode.Mouse0)) Fire(false);
+        if (Input.GetKeyDown(KeyCode.Mouse1)) Fire(true);
     }
     void FixedUpdate()
     {
