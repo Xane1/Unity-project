@@ -6,7 +6,7 @@ using UnityEngine.PlayerLoop;
 
 public class PlayerController : MonoBehaviour
 {
-    public float moveSpeed = 0;
+    public float moveSpeed = 5;
     public Rigidbody2D rb;
     public Weapon weapon;
     private float horizontal;
