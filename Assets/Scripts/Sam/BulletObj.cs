@@ -12,6 +12,11 @@ public class BulletObj : MonoBehaviour
     private PlayerGun _playerGun;
     private GameObject _playerObj;
     private BasicPlayerMovement _basicPlayerMovement;
+    [SerializeField] private float bulletKillTime = 10f;
+
+    [Header("Bounces")] 
+    [SerializeField] private int maxBounces = 2;
+    int _bounces;
     // Start is called before the first frame update
     void Start()
     {
@@ -19,11 +24,23 @@ public class BulletObj : MonoBehaviour
         _rb2d = GetComponent<Rigidbody2D>();
         _bulletStartPosition = transform.position;
         _rb2d.AddForce(transform.right * bulletForce, ForceMode2D.Impulse);
+        StartCoroutine(KillBullet());
     }
 
-    private void OnTriggerEnter2D(Collider2D other)
+    private void OnCollisionEnter2D(Collision2D other)
     {
-        if (!other.gameObject.CompareTag("Target") && !other.gameObject.CompareTag("Player") && _basicPlayerMovement != null) _basicPlayerMovement.SetPlayerLocation(transform.position);
-        Destroy(this);
+        _bounces++;
+        if (_bounces == maxBounces && !other.gameObject.CompareTag("Target") && !other.gameObject.CompareTag("Player") &&
+            _basicPlayerMovement != null)
+        {
+            _basicPlayerMovement.SetPlayerLocation((Vector2)transform.position + Vector2.up);
+            LeanPool.Despawn(this.gameObject);
+        }
+    }
+
+    IEnumerator KillBullet()
+    {
+        yield return new WaitForSeconds(bulletKillTime);
+        LeanPool.Despawn(this.gameObject);
     }
 }

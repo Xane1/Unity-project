@@ -101,7 +101,7 @@ public class PlayerGun : MonoBehaviour
     }
 }
 
-// Adapted from PlayerController script. 
+// Adapted from PlayerController and Weapon script. 
 // Acknowledgements. 
 // Thanks to Alice Bottino on Discord for helping out with the SetGunAim() and SetRobotLocalScale() functions.
 // References.

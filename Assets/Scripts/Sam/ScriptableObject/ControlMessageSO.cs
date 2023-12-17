@@ -1,5 +1,4 @@
 using UnityEngine;
-using UnityEngine.UI;
 
 [CreateAssetMenu(fileName = "Control Message", menuName = "New Control Message")]
 public class ControlMessageSO : ScriptableObject

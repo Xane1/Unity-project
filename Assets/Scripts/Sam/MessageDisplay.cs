@@ -15,6 +15,6 @@ public class MessageDisplay : MonoBehaviour
 
     private void OnTriggerEnter2D(Collider2D other)
     {
-        _introMessage.ShowControlMessage(controlMessage);
+        if (other.gameObject.CompareTag("Player")) _introMessage.ShowControlMessage(controlMessage);
     }
 }
