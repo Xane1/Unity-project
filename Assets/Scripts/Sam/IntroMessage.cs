@@ -2,6 +2,7 @@ using TMPro;
 using UnityEngine;
 using DG.Tweening;
 using Image = UnityEngine.UI.Image;
+using UnityEditor;
 
 public class IntroMessage : MonoBehaviour
 {
@@ -37,6 +38,11 @@ public class IntroMessage : MonoBehaviour
         positionSequence.Append(transform.DOMoveY(newYPosition, intoGameSpeed, false).SetEase(Ease.OutBack));
         positionSequence.Append(transform.DOMoveY(originalYPosition, outOfGameSpeed, false).SetDelay(5).SetEase(Ease.OutBack));
         positionSequence.Play();
+    }
+
+    public string IntroMessageText(int controlMessageInt)
+    {
+        return controlMessages[controlMessageInt].controlMessage;
     }
 }
 
