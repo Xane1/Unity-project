@@ -2,8 +2,6 @@ using TMPro;
 using UnityEngine;
 using DG.Tweening;
 using Image = UnityEngine.UI.Image;
-using UnityEditor;
-
 public class IntroMessage : MonoBehaviour
 {
     [SerializeField] Image image;

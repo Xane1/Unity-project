@@ -104,6 +104,7 @@ public class PlayerGun : MonoBehaviour
 // Adapted from PlayerController and Weapon script. 
 // Acknowledgements. 
 // Thanks to Alice Bottino on Discord for helping out with the SetGunAim() and SetRobotLocalScale() functions.
+// Also thanks to Alice Bottino and theChief on Discord for helping out with some of the code in FireRaycast().
 // References.
 // https://medium.com/@youngchae.depriest/detecting-objects-using-2d-raycasting-in-unity-40cfa9c79234
 // https://discussions.unity.com/t/how-can-i-have-a-raycast-ignore-a-layer-completely/116196

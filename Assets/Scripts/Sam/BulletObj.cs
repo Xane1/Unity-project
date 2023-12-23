@@ -29,6 +29,7 @@ public class BulletObj : MonoBehaviour
 
     private void OnCollisionEnter2D(Collision2D other)
     {
+        Debug.Log("The bullet is colliding with " + other.gameObject.name);
         _bounces++;
         if (_bounces == maxBounces && !other.gameObject.CompareTag("Target") && !other.gameObject.CompareTag("Player") &&
             _basicPlayerMovement != null)

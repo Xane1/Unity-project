@@ -10,6 +10,8 @@ public class BasicPlayerMovement : MonoBehaviour
     private Rigidbody2D _rigidbody2D;
 
     public int localScaleX;
+
+    public float maxY = 2.59f;
     // Start is called before the first frame update
     void Start()
     {
@@ -37,18 +39,10 @@ public class BasicPlayerMovement : MonoBehaviour
         _rigidbody2D.velocity = new Vector2(_movementDirection * characterSpeed, _rigidbody2D.velocity.y);
     }
 
-    private void OnCollisionEnter2D(Collision2D other)
+    public void SetPlayerLocation(Vector2 location)
     {
-        Debug.Log("The player is colliding with " + other.gameObject.name);
-    }
-
-    private void OnCollisionExit2D(Collision2D other)
-    {
-        Debug.Log("The player is no longer colliding with " + other.gameObject.name);
-    }
-
-    public void SetPlayerLocation(Vector2 newLocation)
-    {
+        Vector2 newLocation = location;
+        if (location.y > maxY) newLocation.y = maxY;
         transform.position = newLocation;
     }
 }
