@@ -9,10 +9,28 @@ public class DeadlyMovingWall : MonoBehaviour
 
     GameManager gameManager;
 
+    float transformX;
+
+    [SerializeField] private bool isVerticalWall;
+
     private void Start()
     {
         _rigidbody2D = GetComponent<Rigidbody2D>();
         gameManager = FindObjectOfType<GameManager>();
+        transformX = transform.position.x;
+    }
+
+    void Update()
+    {
+        if ((transform.position.x > transformX || transform.position.x < transformX) && isVerticalWall) 
+            UpdateVerticalWallPositionX();
+    }
+
+    private void UpdateVerticalWallPositionX()
+    {
+        var transform1 = transform;
+        Vector2 newTransform = new Vector2(transformX, transform1.position.y);
+        transform1.position = newTransform;
     }
 
     private void FixedUpdate()

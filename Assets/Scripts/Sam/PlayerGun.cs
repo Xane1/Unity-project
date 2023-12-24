@@ -1,5 +1,6 @@
 using UnityEngine;
 using Lean.Pool;
+using DG.Tweening;
 public class PlayerGun : MonoBehaviour
 { 
     [Header("Raycast")]
@@ -22,13 +23,19 @@ public class PlayerGun : MonoBehaviour
     [SerializeField] private Transform pivotTransform;
 
     [Header("Shoot")]
-    public GameObject bulletPrefab;
     private bool _playerCanShoot = true;
-    public Transform firePoint;
+
 
     [Header("Gizmos")] 
     private Vector2 _gizmoTo;
     private bool _startGizmoDebug;
+
+    [Header("Bullet")]
+    [SerializeField] private bool useRaycastForBullet;
+    public Transform firePoint;
+    public float bulletForce = 20f;
+    public GameObject bulletPrefab;
+
     private void Start()
     {
         _playerCam = Camera.main;
@@ -66,8 +73,24 @@ public class PlayerGun : MonoBehaviour
         if (_playerCanShoot)
         {
             if (useRaycast && fireRaycast) _raycastMode = true;
-            else if (!fireRaycast) LeanPool.Spawn(bulletPrefab, firePoint.position, firePoint.rotation);
+            else if (!fireRaycast) ShootBullet();
         }
+    }
+
+    void ShootBullet()
+    {
+        GameObject newBullet = LeanPool.Spawn(bulletPrefab, firePoint.position, firePoint.rotation);
+        Rigidbody2D newBulletRb = newBullet.GetComponent<Rigidbody2D>();
+        if (useRaycastForBullet)
+        {
+            RaycastHit2D bulletRaycast =
+                Physics2D.Raycast(firePoint.position, firePoint.right, raycastLength, ~playerLayerMask);
+            if (bulletRaycast.collider != null)
+            {
+                newBulletRb.DOMove(bulletRaycast.point, 0.1f);
+            }
+        }
+        else newBulletRb.AddForce(transform.right * bulletForce, ForceMode2D.Impulse); 
     }
     void FireRaycast()
     {
@@ -82,10 +105,8 @@ public class PlayerGun : MonoBehaviour
             {
                 RaycastHit2D reflectionRaycast2D = Physics2D.Raycast(raycastHit2D.point,
                     Vector2.Reflect(firePoint.right, raycastHit2D.normal));
-                if (reflectionRaycast2D.collider != null)
-                {
-                    if (!reflectionRaycast2D.collider.CompareTag("Target")) playerTransform.position = reflectionRaycast2D.point + Vector2.up;
-                }
+                if (reflectionRaycast2D.collider != null && !reflectionRaycast2D.collider.CompareTag("Target")) 
+                    playerTransform.position = reflectionRaycast2D.point + Vector2.up;
                 RaycastHitMessage(reflectionRaycast2D, 2, raycastHit2D.point, 
                     reflectionRaycast2D.point);
             }

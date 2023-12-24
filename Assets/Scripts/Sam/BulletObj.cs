@@ -23,7 +23,6 @@ public class BulletObj : MonoBehaviour
         _basicPlayerMovement = FindObjectOfType<BasicPlayerMovement>();
         _rb2d = GetComponent<Rigidbody2D>();
         _bulletStartPosition = transform.position;
-        _rb2d.AddForce(transform.right * bulletForce, ForceMode2D.Impulse);
         StartCoroutine(KillBullet());
     }
 
