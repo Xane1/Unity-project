@@ -1,3 +1,4 @@
+using System.Collections;
 using UnityEngine;
 using Lean.Pool;
 using DG.Tweening;
@@ -15,6 +16,7 @@ public class PlayerGun : MonoBehaviour
     private Vector2 _playerPosition;
     [SerializeField] private bool canFlipPlayer;
     [SerializeField] private Transform playerTransform;
+    private bool _playerIsLookingLeft;
     
     [Header("Mouse")]
     private Vector2 _mousePosition;
@@ -35,6 +37,10 @@ public class PlayerGun : MonoBehaviour
     public Transform firePoint;
     public float bulletForce = 20f;
     public GameObject bulletPrefab;
+    [SerializeField] private float bulletTime = 0.1f;
+
+    [Header("Bullet Reflections")] 
+    [SerializeField] private int maxBulletBounces = 4;
 
     private void Start()
     {
@@ -44,12 +50,8 @@ public class PlayerGun : MonoBehaviour
     {
         _mousePosition = _playerCam.ScreenToWorldPoint(Input.mousePosition);
         SetGunAim();
-        if (Input.GetKeyDown(KeyCode.Mouse0)) Fire(false);
-        if (Input.GetKeyDown(KeyCode.Mouse1)) Fire(true);
-    }
-    void FixedUpdate()
-    {
-        if (_raycastMode) FireRaycast();
+        if (Input.GetKeyDown(KeyCode.Mouse0)) Fire();
+        // if (Input.GetKeyDown(KeyCode.Mouse1)) Fire(true);
     }
     private void SetGunAim()
     {
@@ -64,68 +66,55 @@ public class PlayerGun : MonoBehaviour
         if (canFlipPlayer)
         {
             Vector2 mouseOffset = _mousePosition - (Vector2)playerTransform.position;
-            if (mouseOffset.x > 0) playerTransform.localScale = new Vector3(1, 1, 1);
-            else playerTransform.localScale = new Vector3(-1, 1, 1);
+            if (mouseOffset.x > 0)
+            {
+                playerTransform.localScale = new Vector3(1, 1, 1);
+                _playerIsLookingLeft = false;
+            }
+            else
+            {
+                playerTransform.localScale = new Vector3(-1, 1, 1);
+                _playerIsLookingLeft = true;
+            }
         }
     }
-    void Fire(bool fireRaycast)
+    void Fire()
     {
-        if (_playerCanShoot)
-        {
-            if (useRaycast && fireRaycast) _raycastMode = true;
-            else if (!fireRaycast) ShootBullet();
-        }
+        if (_playerCanShoot) ShootBullet();
     }
 
     void ShootBullet()
     {
-        GameObject newBullet = LeanPool.Spawn(bulletPrefab, firePoint.position, firePoint.rotation);
+        Vector2 firePointPos = firePoint.position;
+        GameObject newBullet = LeanPool.Spawn(bulletPrefab, firePointPos, firePoint.rotation);
         Rigidbody2D newBulletRb = newBullet.GetComponent<Rigidbody2D>();
-        if (useRaycastForBullet)
-        {
-            RaycastHit2D bulletRaycast =
-                Physics2D.Raycast(firePoint.position, firePoint.right, raycastLength, ~playerLayerMask);
-            if (bulletRaycast.collider != null)
-            {
-                newBulletRb.DOMove(bulletRaycast.point, 0.1f);
-            }
-        }
-        else newBulletRb.AddForce(transform.right * bulletForce, ForceMode2D.Impulse); 
+        Vector2 firepointDirection;
+        if (_playerIsLookingLeft) firepointDirection = -firePoint.right;
+        else firepointDirection = firePoint.right;
+        RaycastHit2D bulletRaycast =
+            Physics2D.Raycast(firePointPos, firepointDirection, raycastLength, ~playerLayerMask);
+        if (bulletRaycast.collider != null) StartCoroutine(MoveBulletViaRaycast(newBulletRb, bulletRaycast, newBullet, firepointDirection));
     }
-    void FireRaycast()
+
+    private IEnumerator MoveBulletViaRaycast(Rigidbody2D newBulletRb, RaycastHit2D bulletRaycast, GameObject bullet, Vector2 firepointDirection)
     {
-        RaycastHit2D raycastHit2D = Physics2D.Raycast(firePoint.position, firePoint.right, 
-            raycastLength, ~playerLayerMask);
-        // Shoots out a raycast.
-        if (raycastHit2D.collider != null)
+        newBulletRb.DOMove(bulletRaycast.point, bulletTime);
+        yield return new WaitForSeconds(bulletTime);
+        if (!bulletRaycast.collider.CompareTag("Target") && 
+            bulletRaycast.collider.CompareTag("Tilemap") && 
+            !bulletRaycast.collider.CompareTag("PlayerZoom")) 
+            playerTransform.position = bulletRaycast.point;  
+        else if (bulletRaycast.collider.CompareTag("Target"))
         {
-            RaycastHitMessage(raycastHit2D, 1, firePoint.position, 
-                raycastHit2D.point);
-            if (raycastHit2D.collider.CompareTag("Target"))
-            {
-                RaycastHit2D reflectionRaycast2D = Physics2D.Raycast(raycastHit2D.point,
-                    Vector2.Reflect(firePoint.right, raycastHit2D.normal));
-                if (reflectionRaycast2D.collider != null && !reflectionRaycast2D.collider.CompareTag("Target")) 
-                    playerTransform.position = reflectionRaycast2D.point + Vector2.up;
-                RaycastHitMessage(reflectionRaycast2D, 2, raycastHit2D.point, 
-                    reflectionRaycast2D.point);
-            }
-                _raycastMode = false;
-            // Disables the raycast from reoccurring in FixedUpdate(), capping it's usage.
+            // Code for reflecting on walls.
         }
-    }
-    private static void RaycastHitMessage(RaycastHit2D raycastHit2D, int raycastNumber, Vector2 hitStart, Vector2 hitEnd)
-    {
-        Debug.Log("raycastHit2D" + raycastNumber + " hitting: " + raycastHit2D.collider.name);
-        Debug.DrawLine(hitStart, hitEnd, Color.white, 1f);
-        
+        Destroy(bullet.gameObject);
     }
 }
 
 // Adapted from PlayerController and Weapon script. 
 // Acknowledgements. 
 // Thanks to Alice Bottino on Discord for helping out with the SetGunAim() and SetRobotLocalScale() functions.
-// Also thanks to Alice Bottino and theChief on Discord for helping out with some of the code in FireRaycast().
 // References.
 // https://medium.com/@youngchae.depriest/detecting-objects-using-2d-raycasting-in-unity-40cfa9c79234
 // https://discussions.unity.com/t/how-can-i-have-a-raycast-ignore-a-layer-completely/116196

@@ -6,6 +6,7 @@ TagManager:
   tags:
   - Tilemap
   - Target
+  - PlayerZoom
   layers:
   - Default
   - TransparentFX
@@ -14,8 +15,8 @@ TagManager:
   - Water
   - UI
   - Player
+  - Reflection
   - World
-  - 
   - 
   - 
   - 
@@ -48,4 +49,7 @@ TagManager:
     locked: 0
   - name: Weapons
     uniqueID: 3700433169
+    locked: 0
+  - name: Reflection
+    uniqueID: 293852649
     locked: 0

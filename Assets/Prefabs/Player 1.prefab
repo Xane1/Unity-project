@@ -170,8 +170,11 @@ MonoBehaviour:
   canFlipPlayer: 1
   playerTransform: {fileID: 7651003296816590523}
   pivotTransform: {fileID: 2579579996487953311}
-  bulletPrefab: {fileID: 8725469444817047540, guid: a9acb85a4f1957e4ea81926fcc619718, type: 3}
+  useRaycastForBullet: 0
   firePoint: {fileID: 6889990396272823231}
+  bulletForce: 20
+  bulletPrefab: {fileID: 8725469444817047540, guid: a9acb85a4f1957e4ea81926fcc619718, type: 3}
+  bulletTime: 0.1
 --- !u!1 &8921835862693092925
 GameObject:
   m_ObjectHideFlags: 0

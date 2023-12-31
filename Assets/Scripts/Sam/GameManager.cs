@@ -1,7 +1,10 @@
+using System;
 using System.Collections;
 using Unity.Mathematics;
 using UnityEngine;
 using Cinemachine;
+using UnityEngine.SceneManagement;
+
 public class GameManager : MonoBehaviour
 {
     [SerializeField] private float delayTime = 3;
@@ -14,7 +17,17 @@ public class GameManager : MonoBehaviour
     private void Start()
     {
         _virtualCamera = FindObjectOfType<CinemachineVirtualCamera>();
-        _originalPlayerPosition = player.transform.position;
+        _originalPlayerPosition = FindObjectOfType<BasicPlayerMovement>().gameObject.transform.position;
+    }
+
+    private void Update()
+    {
+        KillPlayerUsingKey();
+    }
+
+    void KillPlayerUsingKey()
+    {
+        if (Input.GetKey(KeyCode.R)) SceneManager.LoadScene(SceneManager.GetActiveScene().buildIndex);
     }
 
     public IEnumerator RestartGame()
@@ -23,6 +36,8 @@ public class GameManager : MonoBehaviour
         BulletObj[] bullets = FindObjectsOfType<BulletObj>(); // Gets all the bullets based on their BulletObj script. 
         foreach (var bullet in bullets) Destroy(bullet.gameObject); // Finds all the bullets set in the previous array and destroys them. 
         GameObject newPlayer = Instantiate(player, _originalPlayerPosition, quaternion.identity); // Creates a new player. 
-        _virtualCamera.Follow = newPlayer.GetComponent<Transform>(); // Sets the follow of the player to the newPlayer's Transform, by getting it from the player. 
+        _virtualCamera.Follow = FindObjectOfType<PlayerGun>().transform;
     }
+    
+    
 }

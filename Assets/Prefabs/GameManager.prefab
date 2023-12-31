@@ -46,4 +46,5 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   delayTime: 3
   player: {fileID: 8921835862693092925, guid: 8dd4622f9e20a5b4f9399f370e170d79, type: 3}
+  _virtualCamera: {fileID: 0}
   cameraPosition: {fileID: 0}

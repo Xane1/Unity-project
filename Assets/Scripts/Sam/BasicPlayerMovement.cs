@@ -38,11 +38,4 @@ public class BasicPlayerMovement : MonoBehaviour
     {
         _rigidbody2D.velocity = new Vector2(_movementDirection * characterSpeed, _rigidbody2D.velocity.y);
     }
-
-    public void SetPlayerLocation(Vector2 location)
-    {
-        Vector2 newLocation = location;
-        if (location.y > maxY) newLocation.y = maxY;
-        transform.position = newLocation;
-    }
 }
