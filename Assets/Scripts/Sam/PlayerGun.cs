@@ -93,7 +93,7 @@ public class PlayerGun : MonoBehaviour
         else firepointDirection = firePoint.right;
         RaycastHit2D bulletRaycast =
             Physics2D.Raycast(firePointPos, firepointDirection, raycastLength, ~playerLayerMask);
-        if (bulletRaycast.collider != null) StartCoroutine(MoveBulletViaRaycast(newBulletRb, bulletRaycast, newBullet, firepointDirection));
+        if (bulletRaycast.collider != null && newBulletRb != null) StartCoroutine(MoveBulletViaRaycast(newBulletRb, bulletRaycast, newBullet, firepointDirection));
     }
 
     private IEnumerator MoveBulletViaRaycast(Rigidbody2D newBulletRb, RaycastHit2D bulletRaycast, GameObject bullet, Vector2 firepointDirection)
@@ -115,6 +115,7 @@ public class PlayerGun : MonoBehaviour
 // Adapted from PlayerController and Weapon script. 
 // Acknowledgements. 
 // Thanks to Alice Bottino on Discord for helping out with the SetGunAim() and SetRobotLocalScale() functions.
+// Thanks to Guitar Kid on Discord for helping out with moving the bullet, suggesting to move the bullet via raycasting.
 // References.
 // https://medium.com/@youngchae.depriest/detecting-objects-using-2d-raycasting-in-unity-40cfa9c79234
 // https://discussions.unity.com/t/how-can-i-have-a-raycast-ignore-a-layer-completely/116196
