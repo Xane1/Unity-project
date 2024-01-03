@@ -97,11 +97,10 @@ public class PlayerGun : MonoBehaviour
     }
 
     private IEnumerator MoveBulletViaRaycast(Rigidbody2D newBulletRb, RaycastHit2D bulletRaycast, GameObject bullet, Vector2 firepointDirection)
-    {
+    {  
         newBulletRb.DOMove(bulletRaycast.point, bulletTime);
         yield return new WaitForSeconds(bulletTime);
         if (!bulletRaycast.collider.CompareTag("Target") && 
-            bulletRaycast.collider.CompareTag("Tilemap") && 
             !bulletRaycast.collider.CompareTag("PlayerZoom")) 
             playerTransform.position = bulletRaycast.point;  
         else if (bulletRaycast.collider.CompareTag("Target"))

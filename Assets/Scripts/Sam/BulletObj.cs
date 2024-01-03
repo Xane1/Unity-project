@@ -22,13 +22,6 @@ public class BulletObj : MonoBehaviour
 
     private void OnCollisionEnter2D(Collision2D other)
     {
-        if (!other.gameObject.CompareTag("Target")) StartCoroutine(TeleportPlayer(other.transform));
-
-    }
-
-    IEnumerator TeleportPlayer(Transform playerTransform)
-    {
-        yield return new WaitForSeconds(bulletKillTime);
-        LeanPool.Despawn(this.gameObject);
+        // if (!other.gameObject.CompareTag("Target")) StartCoroutine(TeleportPlayer(other.transform));
     }
 }
