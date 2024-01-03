@@ -5,10 +5,6 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="3230965d-1461-4b5c-8d60-73219dce7762" name="Changes" comment="">
-      <change beforePath="$PROJECT_DIR$/.idea/.idea.Unity-project/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/.idea.Unity-project/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/Scenes/MainMenu.unity" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Scenes/MainMenu.unity" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/Scenes/SampleSceneImproved.unity" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Scenes/SampleSceneImproved.unity" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/Scripts/Sam/BulletObj.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Scripts/Sam/BulletObj.cs" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/Assets/Scripts/Sam/PlayerGun.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Scripts/Sam/PlayerGun.cs" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
@@ -119,6 +115,7 @@
       <workItem from="1703677456616" duration="86000" />
       <workItem from="1704035656291" duration="1473000" />
       <workItem from="1704126013888" duration="2856000" />
+      <workItem from="1704294774118" duration="380000" />
     </task>
     <servers />
   </component>

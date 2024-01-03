@@ -6,9 +6,7 @@ public class PlayerGun : MonoBehaviour
 { 
     [Header("Raycast")]
     [Range(1, 200)] [SerializeField] private float raycastLength;
-    [SerializeField] private bool useRaycast;
     private bool _raycastMode;
-    [SerializeField] private int maxBounces = 3;
     public LayerMask playerLayerMask;
     
     [Header("Player")]
@@ -33,9 +31,7 @@ public class PlayerGun : MonoBehaviour
     private bool _startGizmoDebug;
 
     [Header("Bullet")]
-    [SerializeField] private bool useRaycastForBullet;
     public Transform firePoint;
-    public float bulletForce = 20f;
     public GameObject bulletPrefab;
     [SerializeField] private float bulletTime = 0.1f;
 
@@ -86,18 +82,19 @@ public class PlayerGun : MonoBehaviour
     void ShootBullet()
     {
         Vector2 firePointPos = firePoint.position;
-        GameObject newBullet = LeanPool.Spawn(bulletPrefab, firePointPos, firePoint.rotation);
-        Rigidbody2D newBulletRb = newBullet.GetComponent<Rigidbody2D>();
+
         Vector2 firepointDirection;
         if (_playerIsLookingLeft) firepointDirection = -firePoint.right;
         else firepointDirection = firePoint.right;
         RaycastHit2D bulletRaycast =
             Physics2D.Raycast(firePointPos, firepointDirection, raycastLength, ~playerLayerMask);
-        if (bulletRaycast.collider != null && newBulletRb != null) StartCoroutine(MoveBulletViaRaycast(newBulletRb, bulletRaycast, newBullet, firepointDirection));
+        if (bulletRaycast.collider != null) StartCoroutine(MoveBulletViaRaycast(bulletRaycast, firePointPos));
     }
 
-    private IEnumerator MoveBulletViaRaycast(Rigidbody2D newBulletRb, RaycastHit2D bulletRaycast, GameObject bullet, Vector2 firepointDirection)
+    private IEnumerator MoveBulletViaRaycast(RaycastHit2D bulletRaycast, Vector2 firepointPosition)
     {  
+        GameObject newBullet = LeanPool.Spawn(bulletPrefab, firepointPosition, firePoint.rotation);
+        Rigidbody2D newBulletRb = newBullet.GetComponent<Rigidbody2D>();
         newBulletRb.DOMove(bulletRaycast.point, bulletTime);
         yield return new WaitForSeconds(bulletTime);
         if (!bulletRaycast.collider.CompareTag("Target") && 
@@ -107,7 +104,7 @@ public class PlayerGun : MonoBehaviour
         {
             // Code for reflecting on walls.
         }
-        Destroy(bullet.gameObject);
+        Destroy(newBullet.gameObject);
     }
 }
 
