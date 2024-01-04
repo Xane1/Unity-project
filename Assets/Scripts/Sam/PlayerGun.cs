@@ -38,6 +38,11 @@ public class PlayerGun : MonoBehaviour
     [Header("Bullet Reflections")] 
     [SerializeField] private int maxBulletBounces = 4;
 
+    [Header("Sounds")] 
+    [SerializeField] private AudioClip lazerSuccess;
+    [SerializeField] private AudioClip lazerFail;
+    
+
     private void Start()
     {
         _playerCam = Camera.main;
@@ -89,10 +94,12 @@ public class PlayerGun : MonoBehaviour
         RaycastHit2D bulletRaycast =
             Physics2D.Raycast(firePointPos, firepointDirection, raycastLength, ~playerLayerMask);
         if (bulletRaycast.collider != null) StartCoroutine(MoveBulletViaRaycast(bulletRaycast, firePointPos));
+        else AudioSource.PlayClipAtPoint(lazerFail, transform.position);
     }
 
     private IEnumerator MoveBulletViaRaycast(RaycastHit2D bulletRaycast, Vector2 firepointPosition)
     {  
+        AudioSource.PlayClipAtPoint(lazerSuccess, transform.position);
         GameObject newBullet = LeanPool.Spawn(bulletPrefab, firepointPosition, firePoint.rotation);
         Rigidbody2D newBulletRb = newBullet.GetComponent<Rigidbody2D>();
         newBulletRb.DOMove(bulletRaycast.point, bulletTime);

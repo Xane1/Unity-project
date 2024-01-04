@@ -8,10 +8,7 @@ public class BasicPlayerMovement : MonoBehaviour
     [SerializeField] private float characterSpeed = 5f;
     
     private Rigidbody2D _rigidbody2D;
-
-    public int localScaleX;
-
-    public float maxY = 2.59f;
+    
     // Start is called before the first frame update
     void Start()
     {
@@ -24,14 +21,6 @@ public class BasicPlayerMovement : MonoBehaviour
         else if (Input.GetKey(KeyCode.D)) _movementDirection = Vector2.right.x;
         else _movementDirection = 0;
 
-        //  SetLocalScale();
-    }
-
-    private void SetLocalScale()
-    {
-        if (_movementDirection < 0) transform.localScale = new Vector3(-1, 1, 1);
-        else if (_movementDirection > 0) transform.localScale = new Vector3(1, 1, 1);
-        localScaleX = (int)transform.localScale.x;
     }
 
     private void FixedUpdate()
@@ -39,3 +28,6 @@ public class BasicPlayerMovement : MonoBehaviour
         _rigidbody2D.velocity = new Vector2(_movementDirection * characterSpeed, _rigidbody2D.velocity.y);
     }
 }
+
+// References.
+// https://youtu.be/DQYj8Wgw3O0?si=YMOKUhBwTrGhOd25

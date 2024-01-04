@@ -162,20 +162,18 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   raycastLength: 50
-  useRaycast: 1
-  maxBounces: 3
   playerLayerMask:
     serializedVersion: 2
     m_Bits: 64
   canFlipPlayer: 1
   playerTransform: {fileID: 7651003296816590523}
   pivotTransform: {fileID: 2579579996487953311}
-  useRaycastForBullet: 1
   firePoint: {fileID: 6889990396272823231}
-  bulletForce: 20
   bulletPrefab: {fileID: 8725469444817047540, guid: a9acb85a4f1957e4ea81926fcc619718, type: 3}
   bulletTime: 0.2
   maxBulletBounces: 4
+  lazerSuccess: {fileID: 8300000, guid: 7e274db09e4f3ed43864fcdab7d03f53, type: 3}
+  lazerFail: {fileID: 8300000, guid: e3167efaae2c36d4c906ae7603e95e5e, type: 3}
 --- !u!1 &8921835862693092925
 GameObject:
   m_ObjectHideFlags: 0

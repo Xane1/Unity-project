@@ -7,6 +7,7 @@ TagManager:
   - Tilemap
   - Target
   - PlayerZoom
+  - Moving Wall
   layers:
   - Default
   - TransparentFX
