@@ -41,6 +41,7 @@ public class PlayerGun : MonoBehaviour
     [Header("Sounds")] 
     [SerializeField] private AudioClip lazerSuccess;
     [SerializeField] private AudioClip lazerFail;
+    [Range(0, 1)] [SerializeField] private float lazerVolume = 1;
     
 
     private void Start()
@@ -67,6 +68,8 @@ public class PlayerGun : MonoBehaviour
         if (canFlipPlayer)
         {
             Vector2 mouseOffset = _mousePosition - (Vector2)playerTransform.position;
+            Vector2 playerLocalScale = (Vector2)playerTransform.localScale;
+            Debug.Log("Player Local Scale before setting: " + playerLocalScale);
             if (mouseOffset.x > 0)
             {
                 playerTransform.localScale = new Vector3(1, 1, 1);
@@ -94,12 +97,12 @@ public class PlayerGun : MonoBehaviour
         RaycastHit2D bulletRaycast =
             Physics2D.Raycast(firePointPos, firepointDirection, raycastLength, ~playerLayerMask);
         if (bulletRaycast.collider != null) StartCoroutine(MoveBulletViaRaycast(bulletRaycast, firePointPos));
-        else AudioSource.PlayClipAtPoint(lazerFail, transform.position);
+        else AudioSource.PlayClipAtPoint(lazerFail, transform.position, lazerVolume);
     }
 
     private IEnumerator MoveBulletViaRaycast(RaycastHit2D bulletRaycast, Vector2 firepointPosition)
     {  
-        AudioSource.PlayClipAtPoint(lazerSuccess, transform.position);
+        AudioSource.PlayClipAtPoint(lazerSuccess, transform.position, lazerVolume);
         GameObject newBullet = LeanPool.Spawn(bulletPrefab, firepointPosition, firePoint.rotation);
         Rigidbody2D newBulletRb = newBullet.GetComponent<Rigidbody2D>();
         newBulletRb.DOMove(bulletRaycast.point, bulletTime);

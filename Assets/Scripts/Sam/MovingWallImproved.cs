@@ -17,6 +17,8 @@ public class MovingWallImproved : MonoBehaviour
     [Header("Game Object")] 
     [SerializeField] private Transform playerPoint;
 
+    [SerializeField] private bool parentPlayerToMovingWall;
+
     private void Start()
     {
         _rigidbody2D = GetComponent<Rigidbody2D>();
@@ -29,17 +31,16 @@ public class MovingWallImproved : MonoBehaviour
     }
     private void OnCollisionEnter2D(Collision2D col)
     {
-        if (col.gameObject.CompareTag("Player"))
-        {
-            col.collider.transform.SetParent(playerPoint);
-            Debug.Break();
-        }
+        if (col.gameObject.CompareTag("Player") && parentPlayerToMovingWall)
+            col.transform.SetParent(playerPoint, true);
+
 
     }
 
     private void OnCollisionExit2D(Collision2D col)
     {
-        if (col.gameObject.CompareTag("Player")) col.collider.transform.SetParent(null);
+       if (col.gameObject.CompareTag("Player") && parentPlayerToMovingWall) 
+           col.transform.SetParent(playerPoint, true);
     }
 }
 // References.
