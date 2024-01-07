@@ -34,6 +34,7 @@ public class PlayerGun : MonoBehaviour
     public Transform firePoint;
     public GameObject bulletPrefab;
     [SerializeField] private float bulletTime = 0.1f;
+    [SerializeField] private float bulletTimeMultiplier = 5;
 
     [Header("Bullet Reflections")] 
     [SerializeField] private int maxBulletBounces = 4;
@@ -96,23 +97,41 @@ public class PlayerGun : MonoBehaviour
         else firepointDirection = firePoint.right;
         RaycastHit2D bulletRaycast =
             Physics2D.Raycast(firePointPos, firepointDirection, raycastLength, ~playerLayerMask);
-        if (bulletRaycast.collider != null) StartCoroutine(MoveBulletViaRaycast(bulletRaycast, firePointPos));
+        if (bulletRaycast.collider != null) StartCoroutine(MoveBulletViaRaycast(bulletRaycast, firePointPos, firepointDirection));
         else AudioSource.PlayClipAtPoint(lazerFail, transform.position, lazerVolume);
     }
 
-    private IEnumerator MoveBulletViaRaycast(RaycastHit2D bulletRaycast, Vector2 firepointPosition)
+    private IEnumerator MoveBulletViaRaycast(RaycastHit2D bulletRaycast, Vector2 firepointPosition, Vector2 firepointDirection)
     {  
         AudioSource.PlayClipAtPoint(lazerSuccess, transform.position, lazerVolume);
         GameObject newBullet = LeanPool.Spawn(bulletPrefab, firepointPosition, firePoint.rotation);
         Rigidbody2D newBulletRb = newBullet.GetComponent<Rigidbody2D>();
         newBulletRb.DOMove(bulletRaycast.point, bulletTime);
         yield return new WaitForSeconds(bulletTime);
-        if (!bulletRaycast.collider.CompareTag("Target") && 
-            !bulletRaycast.collider.CompareTag("PlayerZoom")) 
+        if (!bulletRaycast.collider.CompareTag("Target") &&
+            !bulletRaycast.collider.CompareTag("PlayerZoom") && bulletRaycast.collider != null)
+        {
             playerTransform.position = bulletRaycast.point;  
+        }
         else if (bulletRaycast.collider.CompareTag("Target"))
         {
-            // Code for reflecting on walls.
+            RaycastHit2D previousRaycast = bulletRaycast;
+            Vector2 bounceInDirection = firepointDirection;
+            Vector2 newBounceDirection = Vector2.Reflect(bounceInDirection, previousRaycast.normal);
+            for (int i = 0; i < maxBulletBounces; i++)
+            {
+                RaycastHit2D bounceRaycast = Physics2D.Raycast(previousRaycast.point,
+                    newBounceDirection);
+                Debug.DrawRay(previousRaycast.point, newBounceDirection, Color.red, 5f);
+                newBulletRb.DOMove(bounceRaycast.point, bulletTime);
+                if (bounceRaycast.collider != null)
+                {
+                    if (!bounceRaycast.collider.CompareTag("Target"))
+                    {
+                        break;
+                    }
+                }
+            }
         }
         Destroy(newBullet.gameObject);
     }

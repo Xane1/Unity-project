@@ -1,4 +1,3 @@
-using System;
 using System.Collections;
 using Unity.Mathematics;
 using UnityEngine;
@@ -11,6 +10,7 @@ public class GameManager : MonoBehaviour
     [SerializeField] private GameObject player;
     private Vector2 _originalPlayerPosition;
     [SerializeField] CinemachineVirtualCamera _virtualCamera;
+    private PlayerZoom _playerZoom;
 
     [SerializeField] CameraPosition cameraPosition;
 
@@ -18,6 +18,7 @@ public class GameManager : MonoBehaviour
     {
         _virtualCamera = FindObjectOfType<CinemachineVirtualCamera>();
         _originalPlayerPosition = FindObjectOfType<BasicPlayerMovement>().gameObject.transform.position;
+        _playerZoom = FindObjectOfType<PlayerZoom>();
     }
 
     private void Update()
@@ -37,6 +38,14 @@ public class GameManager : MonoBehaviour
         foreach (var bullet in bullets) Destroy(bullet.gameObject); // Finds all the bullets set in the previous array and destroys them. 
         GameObject newPlayer = Instantiate(player, _originalPlayerPosition, quaternion.identity); // Creates a new player. 
         _virtualCamera.Follow = FindObjectOfType<PlayerGun>().transform;
+    }
+    
+    public void KillPlayer(GameObject playerToBeKilled)
+    {
+        if (_virtualCamera.m_Lens.OrthographicSize > _playerZoom.originalLensSize) 
+            _virtualCamera.m_Lens.OrthographicSize = _playerZoom.originalLensSize;
+        Destroy(playerToBeKilled);
+        StartCoroutine(RestartGame());
     }
     
     

@@ -11,11 +11,7 @@ public class Spikes : MonoBehaviour
 
     private void OnCollisionEnter2D(Collision2D other)
     {
-        if (other.gameObject.CompareTag("Player")) KillPlayer(other.gameObject);
-    }
-    void KillPlayer(GameObject player)
-    {
-        Destroy(player);
-        StartCoroutine(_gameManager.RestartGame());
+        if (other.gameObject.CompareTag("Player")) _gameManager.KillPlayer(other.gameObject);
+
     }
 }
