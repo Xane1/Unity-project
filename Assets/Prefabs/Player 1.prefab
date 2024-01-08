@@ -171,10 +171,10 @@ MonoBehaviour:
   firePoint: {fileID: 6889990396272823231}
   bulletPrefab: {fileID: 8725469444817047540, guid: a9acb85a4f1957e4ea81926fcc619718, type: 3}
   bulletWithoutRaycast: {fileID: 7674956524726589320, guid: fdababe6f9956bb4484e721565f139da, type: 3}
+  bulletForce: 5
   bulletTime: 0.2
   bulletTimeMultiplier: 5
   shootBulletViaRaycast: 0
-  maxBulletBounces: 4
   lazerSuccess: {fileID: 8300000, guid: 7e274db09e4f3ed43864fcdab7d03f53, type: 3}
   lazerFail: {fileID: 8300000, guid: e3167efaae2c36d4c906ae7603e95e5e, type: 3}
   lazerVolume: 1

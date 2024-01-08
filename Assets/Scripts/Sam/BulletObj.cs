@@ -22,13 +22,17 @@ public class BulletObj : MonoBehaviour
         playerObj = GameObject.FindGameObjectWithTag("Player");
     }
 
-    private void OnCollisionEnter2D(Collision2D other)
+    private void OnCollisionEnter2D(Collision2D other)   
     {
-        if (!moveViaRaycast && other.gameObject.CompareTag("Target")) TeleportPlayer(other.transform.position);
+        if (!moveViaRaycast && !other.gameObject.CompareTag("Target")) TeleportPlayer();
     }
 
-    void TeleportPlayer(Vector2 newLocation)
+    void TeleportPlayer()
     {
-        if (playerObj != null) playerObj.transform.position = newLocation;
+        if (playerObj != null)
+        {
+            playerObj.transform.position = transform.position;
+            Destroy(this.gameObject);
+        }
     }
 }
