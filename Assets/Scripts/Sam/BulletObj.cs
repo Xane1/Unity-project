@@ -1,27 +1,39 @@
-using System.Collections;
-using Lean.Pool;
 using UnityEngine;
+using UnityEngine.Serialization;
 
 public class BulletObj : MonoBehaviour
 {
     private Rigidbody2D _rb2d;
-    [Range(20, 200)]
-    [SerializeField] private float bulletForce = 50;
-    private Vector2 _bulletStartPosition;
+    
+    [Header("Player")]
     private PlayerGun _playerGun;
-    private GameObject _playerObj;
-    private BasicPlayerMovement _basicPlayerMovement;
-    [SerializeField] private float bulletKillTime = 10f;
-    // Start is called before the first frame update
-    void Start()
+    public GameObject playerObj;
+    
+    [SerializeField] private bool moveViaRaycast;
+    
+    [Header("Bullets")]
+    [SerializeField] private float bulletForce = 5;
+
+    [Header("Bounces")] 
+    private int _bounces;
+    [SerializeField] private int maxBulletBounces = 4;
+
+    private void Start()
     {
-        _basicPlayerMovement = FindObjectOfType<BasicPlayerMovement>();
-        _rb2d = GetComponent<Rigidbody2D>();
-        _bulletStartPosition = transform.position;
+        playerObj = GameObject.FindGameObjectWithTag("Player");
     }
 
     private void OnCollisionEnter2D(Collision2D other)
     {
-        // if (!other.gameObject.CompareTag("Target")) StartCoroutine(TeleportPlayer(other.transform));
+        if (!moveViaRaycast)
+        {
+            _bounces++;
+            if (_bounces == maxBulletBounces) TeleportPlayer(other.transform.position);
+        }
+    }
+
+    void TeleportPlayer(Vector2 newLocation)
+    {
+        if (playerObj != null) playerObj.transform.position = newLocation;
     }
 }

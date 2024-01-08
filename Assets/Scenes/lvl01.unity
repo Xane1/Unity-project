@@ -108077,8 +108077,11 @@ MonoBehaviour:
   pivotTransform: {fileID: 1408011016678649605}
   firePoint: {fileID: 7303846197600316252}
   bulletPrefab: {fileID: 0}
+  bulletWithoutRaycast: {fileID: 0}
+  bulletForce: 5
   bulletTime: 0.1
   bulletTimeMultiplier: 5
+  shootBulletViaRaycast: 0
   maxBulletBounces: 4
   lazerSuccess: {fileID: 0}
   lazerFail: {fileID: 0}
@@ -108122,6 +108125,10 @@ PrefabInstance:
     serializedVersion: 3
     m_TransformParent: {fileID: 0}
     m_Modifications:
+    - target: {fileID: 6886888141313692220, guid: 8dd4622f9e20a5b4f9399f370e170d79, type: 3}
+      propertyPath: shootBulletViaRaycast
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 7651003296816590523, guid: 8dd4622f9e20a5b4f9399f370e170d79, type: 3}
       propertyPath: m_LocalPosition.x
       value: -2.42

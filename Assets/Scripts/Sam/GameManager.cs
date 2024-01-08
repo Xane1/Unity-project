@@ -44,7 +44,7 @@ public class GameManager : MonoBehaviour
     {
         if (_virtualCamera.m_Lens.OrthographicSize > _playerZoom.originalLensSize) 
             _virtualCamera.m_Lens.OrthographicSize = _playerZoom.originalLensSize;
-        Destroy(playerToBeKilled);
+        Destroy(playerToBeKilled.gameObject);
         StartCoroutine(RestartGame());
     }
     
