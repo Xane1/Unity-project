@@ -1,5 +1,4 @@
 using UnityEngine;
-using UnityEngine.Serialization;
 
 public class BulletObj : MonoBehaviour
 {
@@ -25,11 +24,7 @@ public class BulletObj : MonoBehaviour
 
     private void OnCollisionEnter2D(Collision2D other)
     {
-        if (!moveViaRaycast)
-        {
-            _bounces++;
-            if (_bounces == maxBulletBounces) TeleportPlayer(other.transform.position);
-        }
+        if (!moveViaRaycast && other.gameObject.CompareTag("Target")) TeleportPlayer(other.transform.position);
     }
 
     void TeleportPlayer(Vector2 newLocation)
