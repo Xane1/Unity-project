@@ -39,6 +39,7 @@ public class PlayerGun : MonoBehaviour
     [SerializeField] private float bulletTime = 0.1f;
     [SerializeField] private float bulletTimeMultiplier = 5;
     [SerializeField] private bool shootBulletViaRaycast;
+    GameObject spawnedBullet;
     
     [Header("Sounds")] 
     [SerializeField] private AudioClip lazerSuccess;
@@ -91,8 +92,10 @@ public class PlayerGun : MonoBehaviour
 
     Rigidbody2D SpawnNewBullet(Vector2 bulletPosition, GameObject bulletObj)
     {
+        if (spawnedBullet != null) Destroy(spawnedBullet);
         AudioSource.PlayClipAtPoint(lazerSuccess, transform.position, lazerVolume);
         GameObject newBullet = LeanPool.Spawn(bulletObj, bulletPosition, firePoint.rotation);
+        spawnedBullet = newBullet;
         Rigidbody2D bulletRb = newBullet.GetComponent<Rigidbody2D>();
         return bulletRb;
     }

@@ -30,7 +30,7 @@ public class IntroMessage : MonoBehaviour
         Vector3 rectTransformPos = _rectTransform.position;
 
         Vector3 oldPosition = new Vector3(rectTransformPos.x, originalYPosition, rectTransformPos.z);
-        Vector3 newPosition = new Vector3(rectTransformPos.x, newYPosition, rectTransformPos.z);
+        Vector3 newPosition = new Vector3(rectTransformPos.x, originalYPosition - newYPosition, rectTransformPos.z);
 
         Sequence positionSequence = DOTween.Sequence();
         positionSequence.Append(transform.DOMoveY(newYPosition, intoGameSpeed, false).SetEase(Ease.OutBack));

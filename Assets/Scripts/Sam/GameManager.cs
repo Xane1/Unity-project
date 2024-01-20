@@ -9,7 +9,7 @@ public class GameManager : MonoBehaviour
     [SerializeField] private float delayTime = 3;
     [SerializeField] private GameObject player;
     private Vector2 _originalPlayerPosition;
-    [SerializeField] CinemachineVirtualCamera _virtualCamera;
+    CinemachineVirtualCamera _virtualCamera;
     private PlayerZoom _playerZoom;
 
     [SerializeField] CameraPosition cameraPosition;
@@ -42,8 +42,6 @@ public class GameManager : MonoBehaviour
     
     public void KillPlayer(GameObject playerToBeKilled)
     {
-        if (_virtualCamera.m_Lens.OrthographicSize > _playerZoom.originalLensSize) 
-            _virtualCamera.m_Lens.OrthographicSize = _playerZoom.originalLensSize;
         Destroy(playerToBeKilled.gameObject);
         StartCoroutine(RestartGame());
     }

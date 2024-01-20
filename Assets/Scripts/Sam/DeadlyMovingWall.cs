@@ -20,22 +20,9 @@ public class DeadlyMovingWall : MonoBehaviour
         transformX = transform.position.x;
     }
 
-    void Update()
-    {
-        if ((transform.position.x > transformX || transform.position.x < transformX) && isVerticalWall) 
-            UpdateVerticalWallPositionX();
-    }
-
-    private void UpdateVerticalWallPositionX()
-    {
-        var transform1 = transform;
-        Vector2 newTransform = new Vector2(transformX, transform1.position.y);
-        transform1.position = newTransform;
-    }
-
     private void FixedUpdate()
     {
-        _rigidbody2D.velocity += movementVelocity;
+        _rigidbody2D.velocity += movementVelocity * Time.deltaTime;
     }
 
     private void OnCollisionEnter2D(Collision2D collision)

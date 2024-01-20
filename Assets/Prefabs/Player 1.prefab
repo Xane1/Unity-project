@@ -171,7 +171,7 @@ MonoBehaviour:
   firePoint: {fileID: 6889990396272823231}
   bulletPrefab: {fileID: 8725469444817047540, guid: a9acb85a4f1957e4ea81926fcc619718, type: 3}
   bulletWithoutRaycast: {fileID: 7674956524726589320, guid: fdababe6f9956bb4484e721565f139da, type: 3}
-  bulletForce: 5
+  bulletForce: 15
   bulletTime: 0.2
   bulletTimeMultiplier: 5
   shootBulletViaRaycast: 0
