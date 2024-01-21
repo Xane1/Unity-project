@@ -8,6 +8,8 @@ public class BasicPlayerMovement : MonoBehaviour
     [SerializeField] private float characterSpeed = 5f;
     
     private Rigidbody2D _rigidbody2D;
+
+    [SerializeField] bool playerCanMove;
     
     // Start is called before the first frame update
     void Start()
@@ -25,7 +27,7 @@ public class BasicPlayerMovement : MonoBehaviour
 
     private void FixedUpdate()
     {
-        _rigidbody2D.velocity = new Vector2(_movementDirection * characterSpeed, _rigidbody2D.velocity.y);
+        if (playerCanMove) _rigidbody2D.velocity = new Vector2(_movementDirection * characterSpeed, _rigidbody2D.velocity.y);
     }
 }
 
