@@ -6,7 +6,12 @@
   <component name="ChangeListManager">
     <list default="true" id="3230965d-1461-4b5c-8d60-73219dce7762" name="Changes" comment="">
       <change beforePath="$PROJECT_DIR$/.idea/.idea.Unity-project/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/.idea.Unity-project/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/Scripts/Sam/BulletObj.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Scripts/Sam/BulletObj.cs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Prefabs/Bullet [without raycast].prefab" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Prefabs/Bullet [without raycast].prefab" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Prefabs/PlayerZoom.prefab" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Prefabs/PlayerZoom.prefab" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Scenes/lvl01.unity" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Scenes/lvl01.unity" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Scripts/Sam/GameManager.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Scripts/Sam/GameManager.cs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Scripts/Sam/PlayerZoom.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Scripts/Sam/PlayerZoom.cs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/ProjectSettings/EditorSettings.asset" beforeDir="false" afterPath="$PROJECT_DIR$/ProjectSettings/EditorSettings.asset" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -41,7 +46,7 @@
     &quot;RunOnceActivity.OpenProjectViewOnStart&quot;: &quot;true&quot;,
     &quot;RunOnceActivity.ShowReadmeOnStart&quot;: &quot;true&quot;,
     &quot;WebServerToolWindowFactoryState&quot;: &quot;false&quot;,
-    &quot;git-widget-placeholder&quot;: &quot;Ejay-&amp;&amp;-Zane's-progress&quot;,
+    &quot;git-widget-placeholder&quot;: &quot;main&quot;,
     &quot;ignore.virus.scanning.warn.message&quot;: &quot;true&quot;,
     &quot;node.js.detected.package.eslint&quot;: &quot;true&quot;,
     &quot;node.js.detected.package.tslint&quot;: &quot;true&quot;,
@@ -125,6 +130,8 @@
       <workItem from="1704712593623" duration="2896000" />
       <workItem from="1704719963878" duration="1826000" />
       <workItem from="1704729710303" duration="524000" />
+      <workItem from="1705853485094" duration="3654000" />
+      <workItem from="1705929624959" duration="1464000" />
     </task>
     <servers />
   </component>

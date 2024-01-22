@@ -34,10 +34,8 @@ public class GameManager : MonoBehaviour
     public IEnumerator RestartGame()
     {
         yield return new WaitForSeconds(delayTime); // Delays the exection of the rest of the script based on the delayTime script. 
-        BulletObj[] bullets = FindObjectsOfType<BulletObj>(); // Gets all the bullets based on their BulletObj script. 
-        foreach (var bullet in bullets) Destroy(bullet.gameObject); // Finds all the bullets set in the previous array and destroys them. 
-        GameObject newPlayer = Instantiate(player, _originalPlayerPosition, quaternion.identity); // Creates a new player. 
-        _virtualCamera.Follow = FindObjectOfType<PlayerGun>().transform;
+        int currentLevel = SceneManager.GetActiveScene().buildIndex;
+        SceneManager.LoadScene(currentLevel);
     }
     
     public void KillPlayer(GameObject playerToBeKilled)
