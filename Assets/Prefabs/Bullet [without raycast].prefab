@@ -12,6 +12,10 @@ PrefabInstance:
       propertyPath: moveViaRaycast
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 4184586185434891998, guid: a9acb85a4f1957e4ea81926fcc619718, type: 3}
+      propertyPath: playerMoveDuration
+      value: 0.1
+      objectReference: {fileID: 0}
     - target: {fileID: 6004568237993304999, guid: a9acb85a4f1957e4ea81926fcc619718, type: 3}
       propertyPath: m_Material
       value: 

@@ -7,11 +7,13 @@
     <list default="true" id="3230965d-1461-4b5c-8d60-73219dce7762" name="Changes" comment="">
       <change beforePath="$PROJECT_DIR$/.idea/.idea.Unity-project/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/.idea.Unity-project/.idea/workspace.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/Assets/Prefabs/Bullet [without raycast].prefab" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Prefabs/Bullet [without raycast].prefab" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/Prefabs/PlayerZoom.prefab" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Prefabs/PlayerZoom.prefab" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Prefabs/Bullet.prefab" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Prefabs/Bullet.prefab" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/Assets/Scenes/lvl01.unity" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Scenes/lvl01.unity" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Scripts/Ejay/Bullet.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Scripts/Ejay/Bullet.cs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Scripts/Sam/BulletObj.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Scripts/Sam/BulletObj.cs" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/Assets/Scripts/Sam/GameManager.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Scripts/Sam/GameManager.cs" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/Assets/Scripts/Sam/PlayerZoom.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Scripts/Sam/PlayerZoom.cs" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/ProjectSettings/EditorSettings.asset" beforeDir="false" afterPath="$PROJECT_DIR$/ProjectSettings/EditorSettings.asset" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/ProjectSettings/ProjectSettings.asset" beforeDir="false" afterPath="$PROJECT_DIR$/ProjectSettings/ProjectSettings.asset" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -131,7 +133,9 @@
       <workItem from="1704719963878" duration="1826000" />
       <workItem from="1704729710303" duration="524000" />
       <workItem from="1705853485094" duration="3654000" />
-      <workItem from="1705929624959" duration="1464000" />
+      <workItem from="1705929624959" duration="4445000" />
+      <workItem from="1705938868932" duration="1149000" />
+      <workItem from="1705940211466" duration="930000" />
     </task>
     <servers />
   </component>

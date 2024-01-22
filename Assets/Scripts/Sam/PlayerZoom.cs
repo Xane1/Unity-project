@@ -9,10 +9,9 @@ public class PlayerZoom : MonoBehaviour
     public float originalLensSize;
     [SerializeField] private float lensZoom = 10;
     [SerializeField] private bool revertZoom;
-    float newZoom;
-    bool canZoom;
+    bool canZoom = true;
     [FormerlySerializedAs("zoomTime")]
-    [Range(1f, 20f)]
+    [Range(0.5f, 20f)]
     [SerializeField] private float zoomSpeed = 10f;
     float xPosition;
 
@@ -21,16 +20,12 @@ public class PlayerZoom : MonoBehaviour
 
     private void Start()
     {
+        DOTween.Init();
         _cinemachineVirtualCamera = FindObjectOfType<CinemachineVirtualCamera>();
         _playerObj = GameObject.FindGameObjectWithTag("Player");
         playerTransform = _playerObj.GetComponent<Transform>();
         originalLensSize = _cinemachineVirtualCamera.m_Lens.OrthographicSize;
         xPosition = transform.position.x;
-    }
-
-    private void Update()
-    {
-        if (canZoom) SetLensZoom();
     }
     private void FixedUpdate()
     {
@@ -40,21 +35,20 @@ public class PlayerZoom : MonoBehaviour
             {
                 if (revertZoom)
                 {
-                    newZoom = originalLensSize;
+                    SetLensZoom(originalLensSize);
                 }
-                else 
+                else
                 {
-                    newZoom = lensZoom;
+                    SetLensZoom(lensZoom);
                 }
-                canZoom = true;
             }
         }
     }
-    void SetLensZoom()
+    void SetLensZoom(float newZoom)
     {
-        _cinemachineVirtualCamera.m_Lens.OrthographicSize = Mathf.Lerp(_cinemachineVirtualCamera.m_Lens.OrthographicSize, newZoom, Time.deltaTime * zoomSpeed);
-        if (_cinemachineVirtualCamera.m_Lens.OrthographicSize > newZoom)
+        if (canZoom)
         {
+            DOVirtual.Float(_cinemachineVirtualCamera.m_Lens.OrthographicSize, newZoom, zoomSpeed, newValue => _cinemachineVirtualCamera.m_Lens.OrthographicSize = newValue).SetEase(Ease.InOutQuint);
             canZoom = false;
         }
     }

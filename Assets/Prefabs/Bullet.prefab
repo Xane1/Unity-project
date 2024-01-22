@@ -174,4 +174,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: e4cd6ac2aa29c2b45852d8e8c045a119, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  playerMoveDuration: 0.5
+  playerObj: {fileID: 0}
   moveViaRaycast: 1
+  bulletForce: 5
+  maxBulletBounces: 4
