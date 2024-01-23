@@ -13,6 +13,8 @@ public class GameManager : MonoBehaviour
 
     [SerializeField] CameraPosition cameraPosition;
 
+    public bool canKillPlayer = true;
+
     private void Start()
     {
         _virtualCamera = FindObjectOfType<CinemachineVirtualCamera>();
@@ -39,9 +41,10 @@ public class GameManager : MonoBehaviour
     
     public void KillPlayer(GameObject playerToBeKilled)
     {
-        Destroy(playerToBeKilled.gameObject);
-        StartCoroutine(RestartGame());
+        if (canKillPlayer)
+        {
+            Destroy(playerToBeKilled.gameObject);
+            StartCoroutine(RestartGame());
+        }
     }
-    
-    
 }

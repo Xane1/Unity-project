@@ -1,3 +1,4 @@
+using System;
 using System.Collections;
 using UnityEngine;
 using Lean.Pool;
@@ -45,6 +46,9 @@ public class PlayerGun : MonoBehaviour
     [SerializeField] private AudioClip lazerSuccess;
     [SerializeField] private AudioClip lazerFail;
     [Range(0, 1)] [SerializeField] private float lazerVolume = 1;
+
+    [Header("Gun")] 
+    private bool _gunIsObstructed;
     
 
     private void Start()
@@ -87,7 +91,15 @@ public class PlayerGun : MonoBehaviour
     }
     void Fire()
     {
-        if (_playerCanShoot) ShootBullet();
+        if (_playerCanShoot)
+        {
+            if (_gunIsObstructed)
+            {
+                AudioSource.PlayClipAtPoint(lazerFail, transform.position, lazerVolume);
+                return;
+            }
+            ShootBullet();
+        }
     }
 
     Rigidbody2D SpawnNewBullet(Vector2 bulletPosition, GameObject bulletObj)
@@ -132,6 +144,19 @@ public class PlayerGun : MonoBehaviour
         {
             Destroy(newBulletRb.gameObject);
         }
+    }
+
+    private void OnTriggerEnter2D(Collider2D other)
+    {
+        if (!other.gameObject.CompareTag("MessageDisplay"))
+        {
+            _gunIsObstructed = true;
+        }
+    }
+
+    private void OnTriggerExit2D(Collider2D other)
+    {
+        _gunIsObstructed = false;
     }
 }
 

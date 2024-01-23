@@ -1,3 +1,4 @@
+using System;
 using UnityEngine;
 
 public class BasicPlayerMovement : MonoBehaviour
@@ -10,11 +11,14 @@ public class BasicPlayerMovement : MonoBehaviour
     private Rigidbody2D _rigidbody2D;
 
     [SerializeField] bool playerCanMove;
+
+    private GameManager _gameManager;
     
     // Start is called before the first frame update
     void Start()
     {
         _rigidbody2D = GetComponent<Rigidbody2D>();
+        _gameManager = FindObjectOfType<GameManager>();
     }
 
     private void Update()
@@ -28,6 +32,12 @@ public class BasicPlayerMovement : MonoBehaviour
     private void FixedUpdate()
     {
         if (playerCanMove) _rigidbody2D.velocity = new Vector2(_movementDirection * characterSpeed, _rigidbody2D.velocity.y);
+    }
+
+    private void OnTriggerEnter2D(Collider2D other)
+    {
+        if (other.gameObject.CompareTag("Spikes")) _gameManager.KillPlayer(this.gameObject);
+
     }
 }
 
